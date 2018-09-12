@@ -1,7 +1,7 @@
 const fetch = require('node-fetch');
 
 class App {
-  makePromise() {
+  promise() {
     const promise = {};
     promise.instance = new Promise((resolve, reject) => {
       promise.resolve = resolve;

@@ -20,7 +20,7 @@ class Weather extends App {
   }
 
   find(search) {
-    const promise = this.makePromise();
+    const promise = this.promise();
     weather.find({ search, degreeType: 'C' }, (e, res) => {
       if (e) {
         this.logger.error(e);

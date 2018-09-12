@@ -47,6 +47,12 @@ class Slack extends App {
     });
   }
 
+  spacer(delay) {
+    const promise = this.promise();
+    setTimeout(promise.resolve, delay, { delay });
+    return promise.instance;
+  }
+
   deleteMessage(message) {
     const url = 'https://slack.com/api/chat.delete';
     const param = _.cloneDeep(this.env);
@@ -70,27 +76,14 @@ class Slack extends App {
     .then(info => this.logger.info(info));
   }
 
-  deleteChat(messages) {
-    const promise = this.makePromise();
-    const run = (delay) => {
-      setTimeout(async () => {
-        if (messages && messages.length) {
-          await this.deleteMessage(messages.shift());
-          this.count++;
-        }
-        if (!messages || !messages.length) {
-          promise.resolve({ success: this.count });
-        } else {
-          run(messages);
-        }
-      }, delay);
-    };
-    const main = () => {
-      this.count = 0;
-      run(1000);
-    };
-    main();
-    return promise.instance;
+  async deleteChat(messages) {
+    const param = { count: 0 };
+    for (let i = 0; i < messages.length; i++) {
+      await this.deleteMessage(messages[i])
+      .then(() => this.spacer(800));
+      param.count++;
+    }
+    return { ok: param.count };
   }
 }
 module.exports = {

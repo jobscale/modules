@@ -3,7 +3,7 @@ const { App } = require('common');
 
 class Shell extends App {
   exec(cmd) {
-    const promise = this.makePromise();
+    const promise = this.promise();
     shell.exec(cmd, (e, stdout) => e ? promise.reject(e) : promise.resolve(stdout));
     return promise.instance;
   }
