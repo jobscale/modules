@@ -25,7 +25,7 @@ class DownDetector extends App {
       list.length = 3;
       return {
         body: el.innerHTML,
-        caption: `param.location - ${list.map(cel => cel.textContent.trim()).join(', ')}`,
+        caption: `${param.location} - ${list.map(cel => cel.textContent.trim()).join(', ')}`,
         image: el.querySelector('img').src,
       };
     });
