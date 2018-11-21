@@ -10,15 +10,18 @@ class Weather extends App {
     .then(body => new JSDOM(body).window.document)
     .then(document => {
       const el = document.querySelector('.today-weather');
+      const today = {
+        telop: el.querySelector('.weather-telop').textContent,
+        date: el.querySelector('.left-style').textContent,
+      };
+      const caption = `${today.telop} ${today.date}`;
       return {
         body: el.innerHTML,
-        date: el.querySelector('.left-style').textContent,
-        caption: el.querySelector('.weather-telop').textContent,
+        caption,
         image: el.querySelector('img').src,
       };
     });
   }
-
   find(search) {
     const promise = this.promise();
     weather.find({ search, degreeType: 'C' }, (e, res) => {

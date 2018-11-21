@@ -9,5 +9,6 @@ module.exports = {
     'class-methods-use-this': 'off',
     'import/no-unresolved': 'off',
     'no-await-in-loop': 'off',
+    'lines-between-class-members': 'off',
   },
 };
